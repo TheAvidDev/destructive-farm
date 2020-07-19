@@ -30,7 +30,10 @@ function generateFlagTableRows(rows) {
 
         html += '<tr>';
         cells.forEach(function (text) {
-            html += '<td>' + escapeHtml(text) + '</td>';
+          text = escapeHtml(text)
+          if (text == item.flag)
+            text = '<code>' + text + '</code>'
+          html += '<td>' + text + '</td>';
         });
         html += '</tr>';
     });

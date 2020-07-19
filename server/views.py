@@ -118,7 +118,7 @@ def show_flags():
 @auth.auth_required
 def post_flags_manual():
     config = reloader.get_config()
-    flags = re.findall(config['FLAG_FORMAT'], request.form['text'])
+    flags = re.findall(config['FLAG_FORMAT'], request.form['text'], re.M)
 
     cur_time = round(time.time())
     rows = [(item, 'Manual', '*', cur_time, FlagStatus.QUEUED.name)

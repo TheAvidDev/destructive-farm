@@ -1,14 +1,10 @@
 Destructive Farm
 ================
 
-<p align="center">
-    Language: <b>English</b> | <a href="https://github.com/DestructiveVoice/DestructiveFarm/blob/master/docs/ru/index.md">Русский</a>
-</p>
-
 Exploit farm for attack-defense CTF competitions
 
 <p align="center">
-    <img src="https://github.com/borzunov/DestructiveFarm/blob/master/docs/images/farm_server_screenshot.png" width="700">
+    <img src="/docs/images/farm_server_screenshot.png" width="700">
 </p>
 
 Read the [FAQ](docs/en/faq.md) if you want to know what attack-defense CTFs are, why you need this exploit farm for them, and why it has the architecture described below.
@@ -32,13 +28,17 @@ Read the [FAQ](docs/en/faq.md) if you want to know what attack-defense CTFs are,
     [More details](docs/en/farm_server.md)
 
 <p align="center">
-    <img src="https://github.com/borzunov/DestructiveFarm/blob/master/docs/images/diagram_en.png" width="500"><br><br>
+    <img src="/docs/images/diagram_en.png" width="500"><br><br>
     <i>The arrows display the flow of the flags</i>
 </p>
 
 ## Future Plans
 
-See the list [here](https://github.com/borzunov/DestructiveFarm/issues/1).
+ - [ ] More generic text-based protocol class
+ - [ ] Implement Tick model
+ - [ ] Sploit flag statuses per tick with metrics
+ - [ ] Scoreboard model
+ - [ ] Scoreboard scraping with metrics
 
 ## Alternatives
 

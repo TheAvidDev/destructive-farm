@@ -31,7 +31,7 @@ function generateFlagTableRows(rows) {
         html += '<tr>';
         cells.forEach(function (text) {
           text = escapeHtml(text)
-          if (text == item.flag)
+          if (text == escapeHtml(item.flag))
             text = '<code>' + text + '</code>'
           html += '<td>' + text + '</td>';
         });

@@ -21,6 +21,36 @@ def index():
         rows = database.query('SELECT DISTINCT {} FROM flags ORDER BY {}'.format(column, column))
         distinct_values[column] = [item[column] for item in rows]
 
+    statuses = [name for name, _ in FlagStatus.__members__.items()]
+
+    # Setup counts and it's 'Total' dictionary
+    counts = {'Total': {'TOTAL': 0}}
+    for status in statuses:
+        counts['Total'][status] = {'count': 0, 'percent': 0}
+
+    # Get the number of statuses for each service and calculate running totals
+    max_sploit_total = 0
+    for sploit in distinct_values['sploit']:
+        counts[sploit] = {'TOTAL': 0}
+        for status in statuses:
+            count = database.query("SELECT COUNT(*) FROM flags WHERE sploit = '%s' AND status = '%s'" % (sploit, status))[0][0]
+            counts[sploit][status] = {'count': count}
+            counts[sploit]['TOTAL'] += count
+            counts['Total'][status]['count'] += count
+            counts['Total']['TOTAL'] += count
+        max_sploit_total = max(max_sploit_total, counts[sploit]['TOTAL'])
+
+    # Calculate sploit status percentages based off max_sploit_total
+    for sploit in distinct_values['sploit']:
+        for sploit_status in [counts[sploit][status] for status in statuses]:
+            sploit_status['percent'] = 100 * sploit_status['count'] / max_sploit_total
+
+    # Calculate overall status percentages based off total flag count
+    for status_total in [counts['Total'][status] for status in statuses]:
+        status_total['percent'] = 100 * status_total['count'] / counts['Total']['TOTAL']
+
+    # Sort by sploit flag total
+    counts = {key: value for key, value in sorted(counts.items(), key=lambda item: -item[1]['TOTAL'])}
     config = reloader.get_config()
 
     server_tz_name = time.strftime('%Z')
@@ -30,6 +60,7 @@ def index():
     return render_template('index.html',
                            flag_format=config['FLAG_FORMAT'],
                            distinct_values=distinct_values,
+                           counts=counts,
                            server_tz_name=server_tz_name)
 
 

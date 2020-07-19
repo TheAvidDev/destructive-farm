@@ -25,3 +25,27 @@ textarea {
 code {
     color: #E74C3E;
 }
+
+#badge-row {
+    align-items: center;
+}
+
+#badge-row > div:nth-child(1) {
+    text-align: right;
+}
+
+#badge-row > div:nth-child(1) {
+    padding-right: 2px;
+}
+
+#badge-row > div:nth-child(2) {
+    padding: 0 2px;
+}
+
+#bade-row > div:nth-child(3) {
+    padding-left: 2px;
+}
+
+.badge {
+    vertical-align: text-top;
+}

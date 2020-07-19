@@ -120,6 +120,19 @@
 
     <div class="mb-3 text-center query-status"></div>
 
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="card border-light">
+                <div class="card-body">
+                    <h4 class="card-title">Sploit Flag Statuses</h4>
+                    {% for sploit in counts %}
+                        {% include "progress.html" %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="search-results" style="display: none;">
         <p>Found <span class="total-count"></span> flags</p>
 

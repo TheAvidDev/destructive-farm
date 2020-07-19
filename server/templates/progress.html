@@ -1,0 +1,42 @@
+<div class="row" id="badge-row">
+    {% with c=counts[sploit] %}
+    <div class="col-lg-2">
+        {% if sploit == 'Manual' %}
+            <span class="badge badge-warning">{{ sploit }}</span>
+        {% elif sploit == 'Total' %}
+            <span class="badge badge-success">{{ sploit }}</span>
+        {% else %}
+            <span class="badge badge-primary">{{ sploit|truncate(23, True, '...', 3) }}</span>
+        {% endif %}
+    </div>
+    <div class="col-lg-7">
+        <div class="progress">
+          {% with extra='progress-bar-striped progress-bar-animated' if sploit == 'Total' %}
+              {% if c['SKIPPED'] %}
+                  <div class="progress-bar {{ extra }} bg-secondary" role="progressbar"
+                    style="width: {{ c['SKIPPED']['percent'] }}%"></div>
+              {% endif %}
+              {% if c['REJECTED'] %}
+                  <div class="progress-bar {{ extra }} bg-danger" role="progressbar"
+                    style="width: {{ c['REJECTED']['percent'] }}%"></div>
+              {% endif %}
+              {% if c['ACCEPTED'] %}
+                  <div class="progress-bar {{ extra }} bg-success" role="progressbar"
+                    style="width: {{ c['ACCEPTED']['percent'] }}%"></div>
+              {% endif %}
+              {% if c['QUEUED'] %}
+                  <div class="progress-bar {{ extra }}" role="progressbar"
+                    style="width: {{ c['QUEUED']['percent'] }}%"></div>
+              {% endif %}
+          {% endwith %}
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <span class="badge badge-pill badge-secondary">{{ c['SKIPPED']['count'] or 0 }}</span>
+        <span class="badge badge-pill badge-danger">{{ c['REJECTED']['count'] or 0 }}</span>
+        <span class="badge badge-pill badge-success">{{ c['ACCEPTED']['count'] or 0 }}</span>
+        <span class="badge badge-pill badge-primary">{{ c['QUEUED']['count'] or 0 }}</span>
+        <span class="badge badge-pill badge-info">{{ c['TOTAL'] or 0 }}</span>
+    </div>
+    {% endwith %}
+</div>
